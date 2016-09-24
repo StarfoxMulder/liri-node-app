@@ -81,46 +81,46 @@ switch(command) {
 	
 		break;
 
-	// case "do-what-it-says":
-	// 	fs.readFile('random.txt','utf8',function(err,data) {
-	// 	//split the string of items separated by commas into an array of items
-
-	// 	switch () {
-	// 		case "my-tweets":
-	// 			var params = {screen_name: 'judeicialreview'};
-	// 			keys.twitterKeys.get('https://api.twitter.com/1.1/statuses/user_timeline.json?', params, function(error, tweets, response) {
-	// 				if(error) {
-	// 					console.log(error);
-	// 				} else {
-	// 					for(var i =0; i < 20; i++) {
-	// 						counter=i+1;
-	// 						console.log(counter+") "+util.inspect(tweets[i].created_at, {showHidden: false, depth: null})+
-	// 							" | "+util.inspect(tweets[i].text, {showHidden: false, depth: null}));
-	// 					}
-	// 				}
-	// 			});
+	case "do-what-it-says":
+		fs.readFile('random.txt','utf8',function(err,data) {
+			if(err) {
+				console.log(err);
+			} else {
+				var randCommand = data.split(',');
+				var randAction = parseFloat(randCommand[0]);
+				var randInput = parseFloat(randCommand[1]);
+				var formattedRandInput= "";
 				
-	// 		break;
+				function format() {
+					formattedRandInput = randInput.replace(/ /g,'%20');
+				};
 
-	// 		case "spotify-this-song":
-	// 			if () {
-	// 			var song =;				
-	// 			} else {
-	// 			}
+				format();
+				
 
-	// 		break;
+				switch(randAction) {
+					case "my-tweets":
+						break;
+					case "spotify-this-song":
 
-	// 		case "movie-this":
-	// 			if() {
-	// 				var movie = ;
-	// 			} else {
+						spotify.search({ type: 'track', query: randInput }, function(err, data) {
+							if (err) {
+						        console.log('Error: ' + err);
+						        return;
+						    } else {
+						    	console.log("Artist: "+util.inspect(data.tracks.items[0].artists[0].name, {showHidden: false, depth: null})); 
+						    	console.log("Song: "+util.inspect(data.tracks.items[0].name, {showHidden: false, depth: null}));
+						    	console.log("Link: "+util.inspect(data.tracks.items[0].preview_url, {showHidden: false, depth: null}));
+						    	console.log("Album: "+util.inspect(data.tracks.items[0].album.name, {showHidden: false, depth: null}));
+						    }
+						});
+						break;
+					case "movie-this":
+						break;
+				}
+			}
+		});
 
-	// 			}
-
-	// 		break;
-	// 	}
-		
-	// }); 
-	//	break;
+		break;
 };
 
