@@ -38,17 +38,27 @@ switch(command) {
 			};
 		};//Making an appropriate string to pass into spotify
 
+// getTrackUri(songName, function(data) {
+// 	trackUri = data.tracks.items[0].uri;
+// }
+
+// var getTrackUri = function()
+
+ 
+// spotify.search('https://api.spotify.com/v1/search?type=track'+songName, function(err, data) {
+// 		songUri = util.inspect(data.track[0].uri, {showHidden: false, depth: null});
+// });
+
+// spotify.get('https://api.spotify.com/v1/tracks/'+songUri, function(err, data) {
 		spotify.search({ type: 'track', query: songName }, function(err, data) {
-	//	spotify.get(''+songName+'', function(err, data) {
 			if (err) {
 		        console.log('Error: ' + err);
 		        return;
 		    } else {
-		    	console.log(util.inspect(data.tracks[0], {showHidden: false, depth: null}));
-		    	console.log("Artist: "+util.inspect(data.artists, {showHidden: false, depth: null})); 
-		    	console.log("Song: "+util.inspect(data.name, {showHidden: false, depth: null}));
-		    	console.log("Link: "+util.inspect(data.preview_url, {showHidden: false, depth: null}));
-		    	console.log("Album: "+util.inspect(data.album, {showHidden: false, depth: null}));
+		    	console.log("Artist: "+util.inspect(data.tracks.items[0].artists[0].name, {showHidden: false, depth: null})); 
+		    	console.log("Song: "+util.inspect(data.tracks.items[0].name, {showHidden: false, depth: null}));
+		    	console.log("Link: "+util.inspect(data.tracks.items[0].preview_url, {showHidden: false, depth: null}));
+		    	console.log("Album: "+util.inspect(data.tracks.items[0].album.name, {showHidden: false, depth: null}));
 		    }
 		});
 	
@@ -62,3 +72,4 @@ switch(command) {
 	
 		break;
 }
+
