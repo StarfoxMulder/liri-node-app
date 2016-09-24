@@ -91,23 +91,35 @@ switch(command) {
 	case "do-what-it-says":
 		fs.readFile('random.txt','utf8',function(err,data) {
 		//split the string of items separated by commas into an array of items
-		fileTxtArr = data.split(',');
 
-		switch (fileTxtArr[0]) {
+		switch () {
 			case "my-tweets":
-				break;
+				var params = {screen_name: 'judeicialreview'};
+				keys.twitterKeys.get('https://api.twitter.com/1.1/statuses/user_timeline.json?', params, function(error, tweets, response) {
+					if(error) {
+						console.log(error);
+					} else {
+						for(var i =0; i < 20; i++) {
+							counter=i+1;
+							console.log(counter+") "+util.inspect(tweets[i].created_at, {showHidden: false, depth: null})+
+								" | "+util.inspect(tweets[i].text, {showHidden: false, depth: null}));
+						}
+					}
+				});
+				
+			break;
 
 			case "spotify-this-song":
-				if (fileTxtArr[1]) {
-				var song = fileTxtArr[1];				
+				if () {
+				var song =;				
 				} else {
 				}
 
 			break;
 
 			case "movie-this":
-				if(fileTxtArr[1]) {
-					var movie = fileTxtArr[1];
+				if() {
+					var movie = ;
 				} else {
 
 				}
