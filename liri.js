@@ -75,7 +75,7 @@ switch(command) {
 					console.log("Actors: " + parser["Actors"]);
 					console.log("Rotten Tomatoes Rating: " + parser["tomatoRating"]);
 					console.log("Rotten Tomatoes URL: " + parser["tomatoURL"]);
-					console.log("\n ||  ----  End Movie Results  ----  || ");
+					console.log("\n      ||  ----  End Movie Results  ----  || ");
 				};
 			});
 	
