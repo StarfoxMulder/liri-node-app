@@ -38,18 +38,6 @@ switch(command) {
 			};
 		};//Making an appropriate string to pass into spotify
 
-// getTrackUri(songName, function(data) {
-// 	trackUri = data.tracks.items[0].uri;
-// }
-
-// var getTrackUri = function()
-
- 
-// spotify.search('https://api.spotify.com/v1/search?type=track'+songName, function(err, data) {
-// 		songUri = util.inspect(data.track[0].uri, {showHidden: false, depth: null});
-// });
-
-// spotify.get('https://api.spotify.com/v1/tracks/'+songUri, function(err, data) {
 		spotify.search({ type: 'track', query: songName }, function(err, data) {
 			if (err) {
 		        console.log('Error: ' + err);
@@ -65,11 +53,75 @@ switch(command) {
 		break;
 
 	case "movie-this":
+		var movieInput = process.argv.slice(3);
+//movieName = "";
+
+// for(var i = 0; i < songInput.length; i++){
+// 	var mWord = songInput[i];
+// 	if(i == 0) {
+// 		songName += sWord;
+// 	} else {
+// 		space = "%20";
+// 		movieName += +mWord;
+// 	};
+// };
+
+		var request = require('request');
+		var queryUrl = 'http://www.omdbapi.com/?t=' + movieInput +'&y=&plot=short&tomatoes=true&r=json';
+
+		request(queryUrl, function (error, response, body) {
+			var parser = JSON.parse(body);
+			if (!error && response.statusCode == 200){
+				console.log("\n || Here Are the Results for Your Movie Request || ");
+				console.log("\nMovie title: " + parser["Title"]);
+				console.log("Release Year: " + parser["Year"]);
+				console.log("IMDB rating: " + parser["imdbRating"]);
+				console.log("Country: " + parser["Country"]);
+				console.log("Language: " + parser["Language"]);
+				console.log("Plot: " + parser["Plot"]);
+				console.log("Actors: " + parser["Actors"]);
+				console.log("Rotten Tomatoes Rating: " + parser["tomatoRating"]);
+				console.log("Rotten Tomatoes URL: " + parser["tomatoURL"]);
+				console.log("\n ||  ----  End Movie Results  ----  || ");
+			};
+		});
 	
 		break;
 
 	case "do-what-it-says":
-	
+		fs.readFile('random.txt','utf8',function(err,data) {
+		//split the string of items separated by commas into an array of items
+		fileTxtArr = data.split(',');
+
+		switch (fileTxtArr[0]) {
+			case "my-tweets":
+				twitter();
+				break;
+
+			case "spotify-this-song":
+				if (fileTxtArr[1]) {
+				var song = fileTxtArr[1];				
+				} else {
+				var song = 'The Sign';
+				console.log(songDefaultMsg);
+				fs.appendFile('log.txt',songDefaultMsg);
+				}
+				spotify(song);	
+			break;
+
+			case "movie-this":
+				if(fileTxtArr[1]) {
+					var movie = fileTxtArr[1];
+				} else {
+					var movie = 'Mr.Nobody';
+					console.log(movieDefaultMsg);
+					fs.appendFile('log.txt',movieDefaultMsg);
+				}
+				omdb(movie);
+			break;
+		}
+		
+	}); 
 		break;
 }
 
