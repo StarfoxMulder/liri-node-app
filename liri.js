@@ -53,81 +53,74 @@ switch(command) {
 		break;
 
 	case "movie-this":
-		var movieInput = process.argv.slice(3);
-//movieName = "";
+		if(process.argv[3] == undefined) {
+			var movieInput = "Mr. Nobody";
+		} else {
+			var movieInput = process.argv.slice(3);
+		}
 
-// for(var i = 0; i < songInput.length; i++){
-// 	var mWord = songInput[i];
-// 	if(i == 0) {
-// 		songName += sWord;
-// 	} else {
-// 		space = "%20";
-// 		movieName += +mWord;
-// 	};
-// };
+			var request = require('request');
+			var queryUrl = 'http://www.omdbapi.com/?t=' + movieInput +'&y=&plot=short&tomatoes=true&r=json';
 
-		var request = require('request');
-		var queryUrl = 'http://www.omdbapi.com/?t=' + movieInput +'&y=&plot=short&tomatoes=true&r=json';
-
-		request(queryUrl, function (error, response, body) {
-			var parser = JSON.parse(body);
-			if (!error && response.statusCode == 200){
-				console.log("\n || Here Are the Results for Your Movie Request || ");
-				console.log("\nMovie title: " + parser["Title"]);
-				console.log("Release Year: " + parser["Year"]);
-				console.log("IMDB rating: " + parser["imdbRating"]);
-				console.log("Country: " + parser["Country"]);
-				console.log("Language: " + parser["Language"]);
-				console.log("Plot: " + parser["Plot"]);
-				console.log("Actors: " + parser["Actors"]);
-				console.log("Rotten Tomatoes Rating: " + parser["tomatoRating"]);
-				console.log("Rotten Tomatoes URL: " + parser["tomatoURL"]);
-				console.log("\n ||  ----  End Movie Results  ----  || ");
-			};
-		});
+			request(queryUrl, function (error, response, body) {
+				var parser = JSON.parse(body);
+				if (!error && response.statusCode == 200){
+					console.log("\n || Here Are the Results for Your Movie Request || ");
+					console.log("\nMovie title: " + parser["Title"]);
+					console.log("Release Year: " + parser["Year"]);
+					console.log("IMDB rating: " + parser["imdbRating"]);
+					console.log("Country: " + parser["Country"]);
+					console.log("Language: " + parser["Language"]);
+					console.log("Plot: " + parser["Plot"]);
+					console.log("Actors: " + parser["Actors"]);
+					console.log("Rotten Tomatoes Rating: " + parser["tomatoRating"]);
+					console.log("Rotten Tomatoes URL: " + parser["tomatoURL"]);
+					console.log("\n ||  ----  End Movie Results  ----  || ");
+				};
+			});
 	
 		break;
 
-	case "do-what-it-says":
-		fs.readFile('random.txt','utf8',function(err,data) {
-		//split the string of items separated by commas into an array of items
+	// case "do-what-it-says":
+	// 	fs.readFile('random.txt','utf8',function(err,data) {
+	// 	//split the string of items separated by commas into an array of items
 
-		switch () {
-			case "my-tweets":
-				var params = {screen_name: 'judeicialreview'};
-				keys.twitterKeys.get('https://api.twitter.com/1.1/statuses/user_timeline.json?', params, function(error, tweets, response) {
-					if(error) {
-						console.log(error);
-					} else {
-						for(var i =0; i < 20; i++) {
-							counter=i+1;
-							console.log(counter+") "+util.inspect(tweets[i].created_at, {showHidden: false, depth: null})+
-								" | "+util.inspect(tweets[i].text, {showHidden: false, depth: null}));
-						}
-					}
-				});
+	// 	switch () {
+	// 		case "my-tweets":
+	// 			var params = {screen_name: 'judeicialreview'};
+	// 			keys.twitterKeys.get('https://api.twitter.com/1.1/statuses/user_timeline.json?', params, function(error, tweets, response) {
+	// 				if(error) {
+	// 					console.log(error);
+	// 				} else {
+	// 					for(var i =0; i < 20; i++) {
+	// 						counter=i+1;
+	// 						console.log(counter+") "+util.inspect(tweets[i].created_at, {showHidden: false, depth: null})+
+	// 							" | "+util.inspect(tweets[i].text, {showHidden: false, depth: null}));
+	// 					}
+	// 				}
+	// 			});
 				
-			break;
+	// 		break;
 
-			case "spotify-this-song":
-				if () {
-				var song =;				
-				} else {
-				}
+	// 		case "spotify-this-song":
+	// 			if () {
+	// 			var song =;				
+	// 			} else {
+	// 			}
 
-			break;
+	// 		break;
 
-			case "movie-this":
-				if() {
-					var movie = ;
-				} else {
+	// 		case "movie-this":
+	// 			if() {
+	// 				var movie = ;
+	// 			} else {
 
-				}
+	// 			}
 
-			break;
-		}
+	// 		break;
+	// 	}
 		
-	}); 
-		break;
-}
+	// }); 
+	//	break;
+};
 
