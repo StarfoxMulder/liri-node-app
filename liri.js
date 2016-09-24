@@ -95,29 +95,23 @@ switch(command) {
 
 		switch (fileTxtArr[0]) {
 			case "my-tweets":
-				twitter();
 				break;
 
 			case "spotify-this-song":
 				if (fileTxtArr[1]) {
 				var song = fileTxtArr[1];				
 				} else {
-				var song = 'The Sign';
-				console.log(songDefaultMsg);
-				fs.appendFile('log.txt',songDefaultMsg);
 				}
-				spotify(song);	
+
 			break;
 
 			case "movie-this":
 				if(fileTxtArr[1]) {
 					var movie = fileTxtArr[1];
 				} else {
-					var movie = 'Mr.Nobody';
-					console.log(movieDefaultMsg);
-					fs.appendFile('log.txt',movieDefaultMsg);
+
 				}
-				omdb(movie);
+
 			break;
 		}
 		
