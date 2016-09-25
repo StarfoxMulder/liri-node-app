@@ -48,7 +48,8 @@ switch(command) {
 			    } else {
 			    	console.log("\n || Here Are the Top Five Results for Your song Request || ")
 			    	for(var g = 0; g < 5; g++) {
-			    		console.log("\n . . . . Song Result "+g+" . . . . ")
+			    		counter1 = g+1;
+			    		console.log("\n . . . . Song Result "+counter1+" . . . . ")
 				    	console.log("Artist: "+util.inspect(data.tracks.items[g].artists[0].name, {showHidden: false, depth: null})); 
 				    	console.log("Song: "+util.inspect(data.tracks.items[g].name, {showHidden: false, depth: null}));
 				    	console.log("Link: "+util.inspect(data.tracks.items[g].preview_url, {showHidden: false, depth: null}));
