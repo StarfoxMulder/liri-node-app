@@ -46,11 +46,16 @@ switch(command) {
 			        console.log('Error: ' + err);
 			        return;
 			    } else {
-			    	console.log("Artist: "+util.inspect(data.tracks.items[0].artists[0].name, {showHidden: false, depth: null})); 
-			    	console.log("Song: "+util.inspect(data.tracks.items[0].name, {showHidden: false, depth: null}));
-			    	console.log("Link: "+util.inspect(data.tracks.items[0].preview_url, {showHidden: false, depth: null}));
-			    	console.log("Album: "+util.inspect(data.tracks.items[0].album.name, {showHidden: false, depth: null}));
-			    }
+			    	console.log("\n || Here Are the Top Five Results for Your song Request || ")
+			    	for(var g = 0; g < 5; g++) {
+			    		console.log("\n . . . . Song Result "+g+" . . . . ")
+				    	console.log("Artist: "+util.inspect(data.tracks.items[g].artists[0].name, {showHidden: false, depth: null})); 
+				    	console.log("Song: "+util.inspect(data.tracks.items[g].name, {showHidden: false, depth: null}));
+				    	console.log("Link: "+util.inspect(data.tracks.items[g].preview_url, {showHidden: false, depth: null}));
+				    	console.log("Album: "+util.inspect(data.tracks.items[g].album.name, {showHidden: false, depth: null}));
+			    		console.log("\n");
+				    }
+				};
 			});
 		};
 		break;
