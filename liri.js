@@ -25,31 +25,34 @@ switch(command) {
 
 	case "spotify-this-song":
 		//var queryUrl = "https://api.spotify.com/v1/search?q="+songName+"&type="
-		var songInput = process.argv.slice(3);
-		songName = "";
+		if(!process.argv[3]) {
+			var songName = 'The Sign';
+		} else {
+			var songInput = process.argv.slice(3);
+			songName = "";
 
-		for(var i = 0; i < songInput.length; i++){
-			var sWord = songInput[i];
-			if(i == 0) {
-				songName += sWord;
-			} else {
-				space = "%20";
-				songName += space+sWord;
-			};
-		};//Making an appropriate string to pass into spotify
+			for(var i = 0; i < songInput.length; i++){
+				var sWord = songInput[i];
+				if(i == 0) {
+					songName += sWord;
+				} else {
+					space = "+";
+					songName += space+sWord;
+				};
+			};//Making an appropriate string to pass into spotify
 
-		spotify.search({ type: 'track', query: songName }, function(err, data) {
-			if (err) {
-		        console.log('Error: ' + err);
-		        return;
-		    } else {
-		    	console.log("Artist: "+util.inspect(data.tracks.items[0].artists[0].name, {showHidden: false, depth: null})); 
-		    	console.log("Song: "+util.inspect(data.tracks.items[0].name, {showHidden: false, depth: null}));
-		    	console.log("Link: "+util.inspect(data.tracks.items[0].preview_url, {showHidden: false, depth: null}));
-		    	console.log("Album: "+util.inspect(data.tracks.items[0].album.name, {showHidden: false, depth: null}));
-		    }
-		});
-	
+			spotify.search({ type: 'track', query: songName }, function(err, data) {
+				if (err) {
+			        console.log('Error: ' + err);
+			        return;
+			    } else {
+			    	console.log("Artist: "+util.inspect(data.tracks.items[0].artists[0].name, {showHidden: false, depth: null})); 
+			    	console.log("Song: "+util.inspect(data.tracks.items[0].name, {showHidden: false, depth: null}));
+			    	console.log("Link: "+util.inspect(data.tracks.items[0].preview_url, {showHidden: false, depth: null}));
+			    	console.log("Album: "+util.inspect(data.tracks.items[0].album.name, {showHidden: false, depth: null}));
+			    }
+			});
+		};
 		break;
 
 	case "movie-this":
