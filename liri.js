@@ -25,40 +25,41 @@ switch(command) {
 
 	case "spotify-this-song":
 		//var queryUrl = "https://api.spotify.com/v1/search?q="+songName+"&type="
-		if(!process.argv[3]) {
-			var songName = 'The Sign';
-		} else {
-			var songInput = process.argv.slice(3);
-			songName = "";
+		
+		var songInput = process.argv.slice(3);
+		songName = "";
 
-			for(var i = 0; i < songInput.length; i++){
-				var sWord = songInput[i];
-				if(i == 0) {
-					songName += sWord;
-				} else {
-					space = "+";
-					songName += space+sWord;
-				};
-			};//Making an appropriate string to pass into spotify
-
-			spotify.search({ type: 'track', query: songName }, function(err, data) {
-				if (err) {
-			        console.log('Error: ' + err);
-			        return;
-			    } else {
-			    	console.log("\n || Here Are the Top Five Results for Your song Request || ")
-			    	for(var g = 0; g < 5; g++) {
-			    		counter1 = g+1;
-			    		console.log("\n . . . . Song Result "+counter1+" . . . . ")
-				    	console.log("Artist: "+util.inspect(data.tracks.items[g].artists[0].name, {showHidden: false, depth: null})); 
-				    	console.log("Song: "+util.inspect(data.tracks.items[g].name, {showHidden: false, depth: null}));
-				    	console.log("Link: "+util.inspect(data.tracks.items[g].preview_url, {showHidden: false, depth: null}));
-				    	console.log("Album: "+util.inspect(data.tracks.items[g].album.name, {showHidden: false, depth: null}));
-			    		console.log("\n");
-				    }
-				};
-			});
+		if(process.argv[3] == undefined) {
+			var songName = 'The+Sign';
 		};
+
+		for(var i = 0; i < songInput.length; i++){
+			var sWord = songInput[i];
+			if(i == 0) {
+				songName += sWord;
+			} else {
+				space = "+";
+				songName += space+sWord;
+			};
+		};//Making an appropriate string to pass into spotify
+
+		spotify.search({ type: 'track', query: songName }, function(err, data) {
+			if (err) {
+		        console.log('Error: ' + err);
+		        return;
+		    } else {
+		    	console.log("\n || Here Are the Top Five Results for Your song Request || ")
+		    	for(var g = 0; g < 5; g++) {
+		    		counter1 = g+1;
+		    		console.log("\n . . . . Song Result "+counter1+" . . . . ")
+			    	console.log("Artist: "+util.inspect(data.tracks.items[g].artists[0].name, {showHidden: false, depth: null})); 
+			    	console.log("Song: "+util.inspect(data.tracks.items[g].name, {showHidden: false, depth: null}));
+			    	console.log("Link: "+util.inspect(data.tracks.items[g].preview_url, {showHidden: false, depth: null}));
+			    	console.log("Album: "+util.inspect(data.tracks.items[g].album.name, {showHidden: false, depth: null}));
+		    		console.log("\n");
+			    }
+			};
+		});
 		break;
 
 	case "movie-this":
@@ -95,33 +96,45 @@ switch(command) {
 			if(err) {
 				console.log(err);
 			} else {
-				var randCommand = data.split(',');
-				var randAction = parseFloat(randCommand[0]);
-				var randInput = parseFloat(randCommand[1]);
-				var formattedRandInput= "";
-				
-				function format() {
-					formattedRandInput = randInput.replace(/ /g,'%20');
-				};
+				var randArray = data.split(',');
+				var randAction = randArray[0];
+				var randInput = randArray[1];
+				var RIasString = randInput.split(' ');			
+				var songName = RIasString.join('+');
 
-				format();
-				
+				//need to reformat randInput as an array for this to work
+				// for(var i = 0; i < RIasString.length; i++){
+				// 	var sWord = randInput[i];
+				// 	if(i == 0) {
+				// 		songName += sWord;
+				// 	} else {
+				// 		space = "+";
+				// 		songName += space+sWord;
+				// 	};
+				// };
 
 				switch(randAction) {
 					case "my-tweets":
 						break;
 					case "spotify-this-song":
+						console.log(songName);
 
-						spotify.search({ type: 'track', query: randInput }, function(err, data) {
+						spotify.search({ type: 'track', query: songName }, function(err, data) {
 							if (err) {
 						        console.log('Error: ' + err);
 						        return;
 						    } else {
-						    	console.log("Artist: "+util.inspect(data.tracks.items[0].artists[0].name, {showHidden: false, depth: null})); 
-						    	console.log("Song: "+util.inspect(data.tracks.items[0].name, {showHidden: false, depth: null}));
-						    	console.log("Link: "+util.inspect(data.tracks.items[0].preview_url, {showHidden: false, depth: null}));
-						    	console.log("Album: "+util.inspect(data.tracks.items[0].album.name, {showHidden: false, depth: null}));
-						    }
+						    	console.log("\n || Here Are the Top Five Results for Your song Request || ")
+						    	for(var g = 0; g < 5; g++) {
+						    		counter1 = g+1;
+						    		console.log("\n . . . . Song Result "+counter1+" . . . . ")
+							    	console.log("Artist: "+util.inspect(data.tracks.items[g].artists[0].name, {showHidden: false, depth: null})); 
+							    	console.log("Song: "+util.inspect(data.tracks.items[g].name, {showHidden: false, depth: null}));
+							    	console.log("Link: "+util.inspect(data.tracks.items[g].preview_url, {showHidden: false, depth: null}));
+							    	console.log("Album: "+util.inspect(data.tracks.items[g].album.name, {showHidden: false, depth: null}));
+						    		console.log("\n");
+							    };
+							};
 						});
 						break;
 					case "movie-this":
